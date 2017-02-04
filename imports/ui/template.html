@@ -1,0 +1,95 @@
+<template name= "application">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <span>
+        {{>signup}}  
+      </span>
+      {{#if isUserActive}}
+        <span class="col-md-2"><a href="/">All Messages</a></span>
+        <span class="col-md-2"><a href="/my_post">My Messages</a></span>
+        <span class="col-md-6"></span>
+      {{else}}
+      <span class="col-md-10"></span>
+      {{/if}}
+      
+    </div>
+    <div class="panel-body">
+      <div class="col-md-6 col-md-offset-3">
+        {{> postForm}}
+        {{> yield}}
+      </div>
+    </div>
+    <div class="panel-footer"></div>
+  </div>
+
+</template>
+
+<template name="postForm">
+  {{#if isUserActive}}
+  <div class="form-group">
+    <label class="control-label">Create Message</label>
+    <div class="input-group">
+      <input type="text" id="content" class="form-control" placeholder="type message here ...">
+      <span class="input-group-btn">
+        <button class="btn btn-success" id ="createMessage" type="button">Create</button>
+      </span>
+    </div>
+  </div>
+  {{else}}
+  {{/if}}
+</template>
+
+<template name="myMessages">
+  <p>
+      <span>Messages:</span>
+  </p>
+  <hr>
+  {{#if messages}}
+    {{#each messages}}
+      {{> post}}
+    {{/each}}
+  {{else}}
+    <p>
+      <span class="col-md-10">Message not available yet!</span>
+    </p>
+  {{/if}}
+</template>
+
+<template name="posts">
+  <p>
+    <span>Messages:</span>
+  </p>
+  <hr>
+  {{#if messages}}
+    {{#each messages}}
+      {{> allpost}}
+    {{/each}}
+  {{else}}
+    <p>
+      <span class="col-md-10">Message not available yet!</span>
+    </p>
+  {{/if}}
+</template>
+
+<template name="allpost">
+  <p>        
+    <span >{{this.message}} </span>
+  </p>
+  <hr>
+</template>
+
+<template name="post">
+  <p>        
+    {{#if isMyPost this.userId }}
+    <span class="col-md-10">{{this.message}} </span>
+    <button class="btn btn-sm btn-danger" id="delete" type="submit">Delete</button>
+    {{else}}
+    <span >{{this.message}} </span>
+    {{/if}}
+  </p>
+  <hr>
+</template>
+
+<template name="signup">
+  {{> loginButtons}}
+</template>
